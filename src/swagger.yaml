@@ -1,0 +1,632 @@
+openapi: 3.0.3
+
+info:
+  title: Consonance
+  description: Consonance User application test
+  version: 1.0.0
+
+servers:
+  - url: /api/v1/consonance
+    description: Base URL for V1
+
+paths:
+  /users:
+    post:
+      tags:
+        - Users
+      summary: Creates user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      
+      responses:
+        201:
+          description: Returns when inititution sigup is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUser201Reponse'
+    get:
+      tags:
+        - Users
+      summary: Get all users
+      parameters:
+        - name: limit
+          in: query
+          description: limit amount of User queried for
+          required: false
+          schema:
+            type: number
+            example: 2
+        - name: offset
+          in: query
+          description: amount of data to offset 
+          required: false
+          schema:
+            type: number
+            example: 1
+      
+      responses:
+        200:
+          description: Returns all users.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getUsers200Reponse'
+  /users/{id}:
+    get:
+      tags:
+        - Users
+      summary: Get data for a single user
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 578f2a6f-b0ae-40b9-8ded-fe6c2cac7c93
+
+      responses:
+        200:
+          description: Returns when a user is retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getUser200Reponse'
+
+        # 400:
+        #   description: Returns when invalid data is sent during User creation
+        #   content:
+        #     application/json:
+        #       schema:
+        #         $ref: '#/components/schemas/CreateUserRequestErrResponse400'
+
+        # 404:
+        #   description: Returns when user with given id isn't found
+        #   content:
+        #     application/json:
+        #       schema:
+        #         $ref: '#/components/schemas/CreateUserRequestErrResponse404'
+
+        # 401:
+        #   description: Returns when invalid authentication credentials is sent
+        #   content:
+        #     application/json:
+        #       schema:
+        #         $ref: '#/components/schemas/CreateUserRequestErrResponse401'
+
+    patch:
+      tags:
+        - Users
+      summary: Update a given user data
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 578f2a6f-b0ae-40b9-8ded-fe6c2cac7c93
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+
+      responses:
+        200:
+          description: Returns when a User is updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getUser200Reponse'
+
+        # 400:
+        #   description: Returns when invalid data is sent during User creation
+        #   content:
+        #     application/json:
+        #       schema:
+        #         $ref: '#/components/schemas/CreateUserRequestErrResponse400'
+
+        #     404:
+        #       description: Returns when User with given id isn't found
+        #       content:
+        #         application/json:
+        #           schema:
+        #             $ref: '#/components/schemas/CreateUserRequestErrResponse404'
+
+        #     401:
+        #       description: Returns when invalid authentication credentials is sent
+        #       content:
+        #         application/json:
+        #           schema:
+        #             $ref: '#/components/schemas/CreateUserRequestErrResponse401'
+          
+    delete:
+      tags:
+        - Users
+      summary: Delete a given User data
+      parameters:
+        - name: id
+          in: path
+          description: User id
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 578f2a6f-b0ae-40b9-8ded-fe6c2cac7c93
+
+      responses:
+        204:
+          description: No Content
+
+
+# ! TASK ENDPOINT
+  /tasks:
+    post:
+      tags:
+        - Tasks
+      summary: Creates task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+      
+      responses:
+        201:
+          description: Returns when inititution sigup is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTask201Reponse'
+    get:
+      tags:
+        - Tasks
+      summary: Get all tasks
+      parameters:
+        - name: limit
+          in: query
+          description: limit amount of Task queried for
+          required: false
+          schema:
+            type: number
+            example: 2
+        - name: offset
+          in: query
+          description: amount of data to offset 
+          required: false
+          schema:
+            type: number
+            example: 1
+      
+      responses:
+        200:
+          description: Returns all tasks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTasks200Reponse'
+  /tasks/{id}:
+    get:
+      tags:
+        - Tasks
+      summary: Get data for a single task
+      parameters:
+        - name: id
+          in: path
+          description: task id
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 578f2a6f-b0ae-40b9-8ded-fe6c2cac7c93
+
+      responses:
+        200:
+          description: Returns when a task is retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTask200Reponse'
+
+        # 400:
+        #   description: Returns when invalid data is sent during Task creation
+        #   content:
+        #     application/json:
+        #       schema:
+        #         $ref: '#/components/schemas/CreateTaskRequestErrResponse400'
+
+        # 404:
+        #   description: Returns when task with given id isn't found
+        #   content:
+        #     application/json:
+        #       schema:
+        #         $ref: '#/components/schemas/CreateTaskRequestErrResponse404'
+
+        # 401:
+        #   description: Returns when invalid authentication credentials is sent
+        #   content:
+        #     application/json:
+        #       schema:
+        #         $ref: '#/components/schemas/CreateTaskRequestErrResponse401'
+
+    patch:
+      tags:
+        - Tasks
+      summary: Update a given task data
+      parameters:
+        - name: id
+          in: path
+          description: task id
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 578f2a6f-b0ae-40b9-8ded-fe6c2cac7c93
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+
+      responses:
+        200:
+          description: Returns when a Task is updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTask200Reponse'
+
+        # 400:
+        #   description: Returns when invalid data is sent during Task creation
+        #   content:
+        #     application/json:
+        #       schema:
+        #         $ref: '#/components/schemas/CreateTaskRequestErrResponse400'
+
+        #     404:
+        #       description: Returns when Task with given id isn't found
+        #       content:
+        #         application/json:
+        #           schema:
+        #             $ref: '#/components/schemas/CreateTaskRequestErrResponse404'
+
+        #     401:
+        #       description: Returns when invalid authentication credentials is sent
+        #       content:
+        #         application/json:
+        #           schema:
+        #             $ref: '#/components/schemas/CreateTaskRequestErrResponse401'
+          
+    delete:
+      tags:
+        - Tasks
+      summary: Delete a given Task data
+      parameters:
+        - name: id
+          in: path
+          description: Task id
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 578f2a6f-b0ae-40b9-8ded-fe6c2cac7c93
+
+      responses:
+        204:
+          description: No Content
+
+
+components:
+  securitySchemes:
+      BearerAuth:
+        type: http
+        scheme: bearer
+        bearerFormat: JWT
+  schemas:
+    # POST /users:
+    CreateUserRequest:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        name:
+          type: string
+          example: Abimbola Olayemi
+        email:
+          type: string
+          example: abimbolaolayemiwhyte@gmail.com
+
+    CreateUser201Reponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: User created
+        data:
+          type: object
+          properties:
+            id: 
+              type: string
+              example: c9c8f157-ab3d-41d2-9d1f-0ace2b23990f
+              format: uuid
+            name:
+              type: string
+              example: Abimbola Olayemi
+            email:
+              type: string
+              example: abimbolaolayemiwhyte@gmail.com
+            createdAt: 
+              type: string
+              example: 2023-06-29T02:16:23.000Z
+              format: timestamp
+            updatedAt: 
+              type: string
+              example: 2023-06-29T02:16:23.000Z
+              format: timestamp
+    # GET /users:
+    getUsers200Reponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: List users
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserSampleResData'
+    
+    # User data sample
+    UserSampleResData:
+      type: object
+      properties:
+        id: 
+          type: string
+          example: c9c8f157-ab3d-41d2-9d1f-0ace2b23990f
+          format: uuid
+        name:
+          type: string
+          example: Abimbola Olayemi
+        email:
+          type: string
+          example: abimbolaolayemiwhyte@gmail.com
+        createdAt: 
+          type: string
+          example: 2023-06-29T02:16:23.000Z
+          format: timestamp
+        updatedAt: 
+          type: string
+          example: 2023-06-29T02:16:23.000Z
+          format: timestamp
+    
+    # GET /user:
+    getUser200Reponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: List users
+        data:
+          type: object
+          properties:
+            id: 
+              type: string
+              example: c9c8f157-ab3d-41d2-9d1f-0ace2b23990f
+              format: uuid
+            name:
+              type: string
+              example: Abimbola Olayemi
+            email:
+              type: string
+              example: abimbolaolayemiwhyte@gmail.com
+            createdAt: 
+              type: string
+              example: 2023-06-29T02:16:23.000Z
+              format: timestamp
+            updatedAt: 
+              type: string
+              example: 2023-06-29T02:16:23.000Z
+              format: timestamp
+
+    # --------END USERS------
+
+    # ! TASK
+    # POST /tasks:
+    CreateTaskRequest:
+      type: object
+      required:
+        - title
+        - description
+        - status
+        - userId
+      properties:
+        title:
+          type: string
+          example: Consonance test
+        description:
+          type: string
+          example: Build a crud application
+        status:
+          type: string
+          enum:
+            - pending
+            - done
+            - inprogress
+          example: inprogress
+        userId:
+          type: string
+          format: uuid
+          example: 578f2a6f-b0ae-40b9-8ded-fe6c2cac7c93
+
+    CreateTask201Reponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: Task created
+        data:
+          type: object
+          properties:
+            title:
+              type: string
+              example: Consonance test
+            description:
+              type: string
+              example: Build a crud application
+            status:
+              type: string
+              enum:
+                - pending
+                - done
+                - inprogress
+              example: inprogress
+            userId:
+              type: string
+              format: uuid
+              example: 578f2a6f-b0ae-40b9-8ded-fe6c2cac7c93
+            createdAt: 
+              type: string
+              example: 2023-06-29T02:16:23.000Z
+              format: timestamp
+            updatedAt: 
+              type: string
+              example: 2023-06-29T02:16:23.000Z
+              format: timestamp
+
+    # GET /tasks:
+    getTasks200Reponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: List tasks
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskSampleResData'
+    
+    # Task data sample
+    TaskSampleResData:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: Task created
+        data:
+          type: object
+          properties:
+            title:
+              type: string
+              example: Consonance test
+            description:
+              type: string
+              example: Build a crud application
+            status:
+              type: string
+              enum:
+                - pending
+                - done
+                - inprogress
+              example: inprogress
+            userId:
+              type: string
+              format: uuid
+              example: 578f2a6f-b0ae-40b9-8ded-fe6c2cac7c93
+            createdAt: 
+              type: string
+              example: 2023-06-29T02:16:23.000Z
+              format: timestamp
+            updatedAt: 
+              type: string
+              example: 2023-06-29T02:16:23.000Z
+              format: timestamp
+    
+    # GET /task:
+    getTask200Reponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: List tasks
+        data:
+          type: object
+          properties:
+            statusCode:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Task created
+            data:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Consonance test
+                description:
+                  type: string
+                  example: Build a crud application
+                status:
+                  type: string
+                  enum:
+                    - pending
+                    - done
+                    - inprogress
+                  example: inprogress
+                userId:
+                  type: string
+                  format: uuid
+                  example: 578f2a6f-b0ae-40b9-8ded-fe6c2cac7c93
+                createdAt: 
+                  type: string
+                  example: 2023-06-29T02:16:23.000Z
+                  format: timestamp
+                updatedAt: 
+                  type: string
+                  example: 2023-06-29T02:16:23.000Z
+                  format: timestamp
+        
+    # ----- END TASK----#
+    
+    # Internal Server Error
+    InternalServerError:
+      type: object
+      properties:
+        statusCode: 
+          type: integer
+          example: 500
+        message: 
+          type: string
+          example: Internal server error

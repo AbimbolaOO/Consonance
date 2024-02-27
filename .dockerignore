@@ -1,0 +1,9 @@
+node_modules
+# Dockerfile
+.git
+.gitignore
+.db.sqlite
+dump.rdb
+dist
+try*.sh
+in.html

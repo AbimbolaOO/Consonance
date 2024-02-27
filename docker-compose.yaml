@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  consonance-app:
+    container_name: consonance-app
+    image: consonance
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - '3000:3000'
+    networks:
+      - consonance-net
+    depends_on:
+      - db
+
+  db:
+    container_name: consonancedb
+    image: postgres
+    environment:
+      POSTGRES_USER: consonancedb
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - consonance-net
+    restart: unless-stopped
+
+networks:
+  consonance-net:
+    driver: bridge
+
+volumes:
+  postgres:
